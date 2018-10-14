@@ -1,8 +1,13 @@
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
 
 # import ContactForm from .form
 from .forms import ContactForm
+
+# import LoginForm
+from .forms import LoginForm
 
 def home_page(request):
     title = "I am from Home Page"
@@ -44,3 +49,32 @@ def contact_page(request):
     #     print(request.POST.get('content'))
 
     return render(request, 'contact/view.html', context)
+
+def login_page(request):
+    form = LoginForm(request.POST or None)
+    context = {
+            'form' : form
+    }
+    #print(request.user.is_authenticated)
+    if form.is_valid():
+        print("User is not loged in")
+        #print(form.cleaned_data)
+        # geting form data from the form
+        username = form.cleaned_data.get("username")
+        password = form.cleaned_data.get("password")
+        user = authenticate(request, username=username, password=password)
+        print(user)
+        if user is not None:
+            #print(request.user.is_authenticated)
+            login(request, user)
+            #context['form'] = LoginForm()
+            return redirect('/login')
+        else:
+            print("Error")
+    
+    
+    
+    return render(request, 'registration/login.html', context)
+
+def register_page(request):
+    return render(request, 'register.html')

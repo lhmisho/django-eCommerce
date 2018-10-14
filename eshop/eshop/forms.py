@@ -11,3 +11,8 @@ class ContactForm(forms.Form):
         if 'gmail.com' not in email:
             raise forms.ValidationError("Email has to be GMAIL")
         return email
+
+# creating class for login form ... next step is manage views.py       
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput())
