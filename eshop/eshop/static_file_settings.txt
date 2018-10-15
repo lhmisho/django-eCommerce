@@ -1,0 +1,27 @@
+#) create a static_cdn dir at the smae lebel of the project
+    - static_cdn
+    - pipfile
+    - pipfile.lock
+    - venv
+
+#) add the following to the settings.py
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static_my_proj"),
+]
+
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root")
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
+
+
+# add the following line to the urls.py
+from django.conf import settings
+from django.conf.urls.static import static
+.
+.
+.
+if settings.DEBUG:
+    urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
