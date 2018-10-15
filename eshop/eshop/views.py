@@ -1,21 +1,19 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, get_user_model
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-
-# import ContactForm from .form
-from .forms import ContactForm
-
-# import LoginForm
-from .forms import LoginForm
+# import LoginForm, RegisterForm, ContactForm
+from .forms import RegisterForm, LoginForm, ContactForm
 
 def home_page(request):
     title = "I am from Home Page"
     content = "Welcome to the home page"
     context = {
         "title"     : title,
-        "content"   : content
+        "content"   : content,
     }
+    if request.user.is_authenticated:
+        context['premium_content'] = "yeeeeee"
     return render(request, 'home.html', context)
 
 def about_page(request):
@@ -76,5 +74,17 @@ def login_page(request):
     
     return render(request, 'registration/login.html', context)
 
+User = get_user_model()
 def register_page(request):
-    return render(request, 'register.html')
+    form = RegisterForm(request.POST or None)
+    context = {
+            'form' : form
+    }
+    if form.is_valid():
+        username = form.cleaned_data.get('username')
+        email    = form.cleaned_data.get('email')
+        password = form.cleaned_data.get('password')
+        # creating new user
+        new_user = User.objects.create(username, email, password)
+        print(new_user)
+    return render(request, 'registration/register.html', context)
