@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, Http404
 from django.views.generic import ListView, DetailView
 
 # importing from .models
@@ -36,8 +36,22 @@ class ProductDetailView(DetailView):
 def product_detail_page(request,pk=None, *args, **kwargs):
     # getting data from products
     # instance = Product.objects.get(pk=pk)
-    instace = get_object_or_404(Product, pk=pk)
+    # instace = get_object_or_404(Product, pk=pk)
+    # try:
+    #     instance = Product.objects.get(id=pk)
+    # except Product.DoesNotExist:
+    #     print("Products doesn't exit")
+    #     raise Http404("Product doesn't exist")
+    # except:
+    #     print("idiot go anyware else")
+
+    qs = Product.objects.filter(id=pk)
+    if qs.count() == 1:
+        print(qs)
+        instance = qs.first()
+    else:
+        raise Http404("products doesn't exist")
     context = {
-        'object' : instace
+        'object' : instance
     }
     return render(request, 'products/product_detail.html', context)

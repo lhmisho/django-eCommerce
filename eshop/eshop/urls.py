@@ -34,7 +34,7 @@ urlpatterns = [
     path('products/', ProductListView.as_view()),
     path('products-fbv/', product_list_page),
     path('products/<int:pk>/', ProductDetailView.as_view()),
-    path('products-fbv/<int:pk>', product_detail_page),
+    path('products-fbv/<int:pk>/', product_detail_page),
 
     # authentication section
     path('login/', login_page),

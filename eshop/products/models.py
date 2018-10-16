@@ -6,7 +6,7 @@ from django.db import models
 
 # taking finame from upload_image_path and dividing the filename and ext and return them back 
 def get_file_name(filename):
-    basename = os.path.basename(filename)
+    #basename = os.path.basename(filename)
     name, ext = os.path.splitext(filename)
     return name, ext
 

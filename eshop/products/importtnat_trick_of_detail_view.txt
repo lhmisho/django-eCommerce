@@ -1,0 +1,35 @@
+we can get data from our model in different way
+
+def product_detail_page(request,pk=None, *args, **kwargs):
+
+    way one
+    .........................................
+    getting data from products
+    instance = Product.objects.get(pk=pk)
+    instace = get_object_or_404(Product, pk=pk)
+
+    way two
+    ............................................
+    try:
+        instance = Product.objects.get(id=pk)
+    except Product.DoesNotExist:
+        print("Products doesn't exit")
+        raise Http404("Product doesn't exist")
+    except:
+        print("idiot go anyware else")
+
+    way three
+    ............................................
+    qs = Product.objects.filter(id=pk)
+    if qs.count() == 1:
+        print(qs)
+        instance = qs.first()
+    else:
+        raise Http404("products doesn't exist")
+
+
+        
+    context = {
+        'object' : instance
+    }
+    return render(request, 'products/product_detail.html', context)

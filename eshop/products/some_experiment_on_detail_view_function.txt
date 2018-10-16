@@ -1,0 +1,50 @@
+Python 3.6.6 (default, Sep 12 2018, 18:26:19)
+[GCC 8.0.1 20180414 (experimental) [trunk revision 259383]] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from products.models import Product
+>>>
+>>> qs = Product.objects.all()
+>>> qs
+<QuerySet [<Product: car>, <Product: truck>, <Product: but>]>>>> qs = Product.objects.filter(title__contain='but')
+
+>>> from products.models import Product
+>>> qs = Product.objects.filter(title__contains='but')>>> ps
+
+<QuerySet [<Product: but>]>>>> qs = Product.objects.filter(title__contains='But')
+>>> qs = get_object_or_404(Product, id=)
+  File "<console>", line 1    qs = get_object_or_404(Product, id=)
+
+>>> try:
+...     Product.objects.get(id=3)... except Product.DoesNotExist:
+...     print("Products doesn't exit")
+... except:...     print("idiot go anyware else")
+...
+<Product: but>>>>
+
+>>> try:
+...     Product.objects.get(id=3)
+... except Product.DoesNotExist:
+...     print("Products doesn't exit")
+... except:
+...     print("idiot go anyware else")
+...
+<Product: but>
+
+>>> try:
+...     Product.objects.get(id=3)
+... except Product.DoesNotExist:
+...     Product.objects.get(id=3)
+...
+<Product: but>
+>>>
+
+>>> try:
+...     Product.objects.get(id=6)
+... except Product.DoesNotExist:
+...     print("Products doesn't exit")
+... except:
+...     print("idiot go anyware else")
+...
+Products doesn't exit
+>>>
