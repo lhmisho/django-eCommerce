@@ -5,13 +5,19 @@ from django.views.generic import ListView, DetailView
 from .models import Product
 
 class ProductListView(ListView):
-    queryset = Product.objects.all()
+    # first way to manage list view
+    #queryset = Product.objects.all()
     template_name = 'products/product_list.html'
 
     # def get_context_data(self, *args, **kwargs):
     #     context = super(ProductListView, self).get_context_data(*args,**kwargs)
     #     print(context)
     #     return context
+
+    # another way to manage listView
+    def get_queryset(self, *args, **kwargs):
+        request = self.requset
+        return Product.objects.all()
 
 def product_list_page(request):
 
@@ -23,15 +29,29 @@ def product_list_page(request):
     return render(request, 'products/product_list.html', context)
 
 class ProductDetailView(DetailView):
-
     # geting all object form Product
-    queryset = Product.objects.all()
+    #queryset = Product.objects.all()
     template_name = 'products/product_detail.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProductDetailView, self).get_context_data(*args,**kwargs)
         print(context)
         return context
+
+    #my custom query for retriving data in detailView
+    def get_object(self, *args, **kwargs):
+        #request = self.request
+        pk = self.kwargs.get('pk')
+        instance = Product.objects.get_by_id(pk)  # my query
+        print(instance)
+        if instance is None:
+            raise Http404("product not found")
+        return instance
+
+    # another way to manage detail view
+    # def get_queryset(self, *args, **kwargs):
+    #     pk = self.kwargs.get('pk')
+    #     return Product.objects.filter(pk=pk)
 
 def product_detail_page(request,pk=None, *args, **kwargs):
     # getting data from products
@@ -45,12 +65,18 @@ def product_detail_page(request,pk=None, *args, **kwargs):
     # except:
     #     print("idiot go anyware else")
 
-    qs = Product.objects.filter(id=pk)
-    if qs.count() == 1:
-        print(qs)
-        instance = qs.first()
-    else:
-        raise Http404("products doesn't exist")
+    # get_by_id is my custom query ... 
+    instance   = Product.objects.get_by_id(pk)
+    print(instance)
+    if instance is None:
+        raise Http404("product not found")
+
+    # qs = Product.objects.filter(id=pk)
+    # if qs.count() == 1:
+    #     print(qs)
+    #     instance = qs.first()
+    # else:
+    #     raise Http404("products doesn't exist")
     context = {
         'object' : instance
     }
