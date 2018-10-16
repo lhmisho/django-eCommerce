@@ -4,20 +4,53 @@ from django.views.generic import ListView, DetailView
 # importing from .models
 from .models import Product
 
-class ProductListView(ListView):
+
+# featured product section
+class ProductFeaturedListView(ListView):
     # first way to manage list view
     #queryset = Product.objects.all()
     template_name = 'products/product_list.html'
 
-    # def get_context_data(self, *args, **kwargs):
-    #     context = super(ProductListView, self).get_context_data(*args,**kwargs)
-    #     print(context)
-    #     return context
-
     # another way to manage listView
     def get_queryset(self, *args, **kwargs):
-        request = self.requset
+        request = self.request
+        return Product.objects.all().featured()
+
+class ProductFeaturedDetailView(DetailView):
+    # geting all object form Product
+    queryset = Product.objects.all().featured()
+    template_name = 'products/featured-detail.html'
+
+    # another way to manage detail view
+    # def get_queryset(self, *args, **kwargs):
+    #     request = self.request
+    #     return Product.objects.featured()
+
+
+# general product section
+class ProductListView(ListView):
+    # first way to manage list view
+    #queryset = Product.objects.all()
+    template_name = 'products/product_list.html'
+    def get_queryset(self, *args, **kwargs):
+        request = self.request
         return Product.objects.all()
+
+class ProductDetailView(DetailView):
+    # geting all object form Product
+    #queryset = Product.objects.all()
+    template_name = 'products/product_detail.html'
+
+    #my custom query for retriving data in detailView
+    def get_object(self, *args, **kwargs):
+        #request = self.request
+        pk = self.kwargs.get('pk')
+        instance = Product.objects.get_by_id(pk)  # my query
+        print(instance)
+        if instance is None:
+            raise Http404("product not found")
+        return instance
+
 
 def product_list_page(request):
 

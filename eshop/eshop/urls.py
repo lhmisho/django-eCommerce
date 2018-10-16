@@ -20,7 +20,12 @@ from django.contrib import admin
 from django.urls import path
 
 from .views import home_page, contact_page, about_page, login_page, register_page
-from products.views import ProductListView, product_list_page, ProductDetailView, product_detail_page 
+from products.views import (ProductListView, 
+                            product_list_page, 
+                            ProductDetailView, 
+                            product_detail_page,
+                            ProductFeaturedListView,
+                            ProductFeaturedDetailView) 
 
 apps_name = 'products'
 
@@ -35,6 +40,10 @@ urlpatterns = [
     path('products-fbv/', product_list_page),
     path('products/<int:pk>/', ProductDetailView.as_view()),
     path('products-fbv/<int:pk>/', product_detail_page),
+
+    # product featured section
+    path('featured/', ProductFeaturedListView.as_view()),   
+    path('featured/<int:pk>/', ProductFeaturedDetailView.as_view()),   
 
     # authentication section
     path('login/', login_page),
