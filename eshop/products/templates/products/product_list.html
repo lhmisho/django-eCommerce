@@ -1,5 +1,7 @@
-<!-- {{ object_list }} -->
+{% extends 'base.html' %}
 
+{% block content %}
+<!-- {{ object_list }} -->
 {% for obj in object_list %}
 
     <!-- get_absolute_url is created at products.models get_absolute_url() -->
@@ -10,3 +12,5 @@
 {{ paginator }}    
 {{ is_paginated }}    
 {{ object_list }}     -->
+
+{% endblock %}
