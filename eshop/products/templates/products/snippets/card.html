@@ -1,0 +1,39 @@
+<!-- <div class="demo-title">
+	<h1 class="display-1">Cards</h1>
+	<p>by <a href="#">@AlPhaD</a></p>
+	<p>contribute on github <a href="https://github.com/alphadsy/alpha-ui">alpha-ui</a></p>
+	<p>more from Alphad <a href="https://bootsnipp.com/snippets/xr3eN">post ui</a></p>
+</div> -->
+
+<!-- <div class="cards clearfix">
+	<div class="card" id="card2">
+		{% if instance.image %}
+		<img src="{{ instance.image.url}}" class="" alt="">
+		{%endif%}
+		<div class="caption">
+		<h3 class="text">{{instance.title}}</h3>
+		<div class="action btn btn-light"><a href="{{ instance.get_absolute_url}}">Details</a></div>
+		</div>
+	</div>
+</div>
+<script defer src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script> -->
+<!-- 
+<div class="demo-more d-lg-flex justify-content-around">
+	<p><i class="fa fa-users"></i> contribute on github <a href="https://github.com/alphadsy/alpha-ui">alpha-ui</a></p>
+	<p><i class="fa fa-gift"></i> more ui and layout <a href="https://github.com/alphadsy">alphadsy</a></p>
+	<p><i class="fa fa-balance-scale"></i> under MIT</p>
+	<p><i class="fa fa-camera-retro"></i> bg-image from <a href="http://stocksnap.io/">stocksnap</a></p>
+</div> -->
+
+<div class="card" style="width: 18rem; margin-left: 20px;">
+	{% if instance.image %}
+	<a href="{{instance.get_absolute_url}}" class="btn btn-primary">
+		<img class="card-img-top" src="{{instance.image.url}}" alt="{{instance.title}} logo">
+	</a>
+	{%endif%}
+		<div class="card-body">
+			<h5 class="card-title">{{instance.title}}</h5>
+			<p class="card-text">{{instance.description}}</p>
+			<a href="{{instance.get_absolute_url}}" class="btn btn-primary">Details</a>
+		</div>
+	</div>
