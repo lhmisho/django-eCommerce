@@ -26,6 +26,24 @@ class ProductFeaturedDetailView(DetailView):
     #     request = self.request
     #     return Product.objects.featured()
 
+# slug product section
+class ProductSlugDetailView(DetailView):
+    # #queryset = Product.objects.all()
+    template_name = "products/product_detail.html"
+    def get_object(self, *args, **kwargs):
+        slug = self.kwargs.get('slug')
+
+        try:
+            instance = Product.objects.get(slug=slug, active=True)
+        except Product.DoesNotExist:
+            raise Http404("Product not exist")
+        except Product.MultipleObjectsReturned:
+            qs = Product.objects.filter(slug=slug, active=True)
+            instance = qs.first()
+        except:
+            raise Http404("don't bother..")
+
+        return instance
 
 # general product section
 class ProductListView(ListView):
@@ -36,20 +54,6 @@ class ProductListView(ListView):
         request = self.request
         return Product.objects.all()
 
-class ProductDetailView(DetailView):
-    # geting all object form Product
-    #queryset = Product.objects.all()
-    template_name = 'products/product_detail.html'
-
-    #my custom query for retriving data in detailView
-    def get_object(self, *args, **kwargs):
-        #request = self.request
-        pk = self.kwargs.get('pk')
-        instance = Product.objects.get_by_id(pk)  # my query
-        print(instance)
-        if instance is None:
-            raise Http404("product not found")
-        return instance
 
 
 def product_list_page(request):
