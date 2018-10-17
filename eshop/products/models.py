@@ -59,7 +59,12 @@ class Product(models.Model):
     image       = models.ImageField(upload_to=upload_image_path, blank=True, null=True)
     featured    = models.BooleanField(default=False)
     active      = models.BooleanField(default=True)
+    
     objects     = ProductManager()
+
+    # creating absolute url for template redirect
+    def get_absolute_url(self):
+        return f"/products/{self.slug}/"
     
     def __str__(self):
         return self.title

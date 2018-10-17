@@ -1,7 +1,9 @@
 <!-- {{ object_list }} -->
 
 {% for obj in object_list %}
-    {{obj.title}}<br/>
+
+    <!-- get_absolute_url is created at products.models get_absolute_url() -->
+    <a href="{{ obj.get_absolute_url}}">{{obj.title}}</a><br/>
 {% endfor %}
 
 <!-- {'paginator': None, 'page_obj': None, 'is_paginated': False, 'object_list': <QuerySet [<Product: car>]>, 'product_list': <QuerySet [<Product: car>]>, 'view': <products.views.ProductListView object at 0x7f686df2edd8>}

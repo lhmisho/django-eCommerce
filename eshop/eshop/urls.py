@@ -17,37 +17,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from django.contrib import admin
-from django.urls import path,re_path
+from django.urls import path,re_path, include
 
 from .views import home_page, contact_page, about_page, login_page, register_page
-from products.views import (ProductListView, 
-                            product_list_page, 
-                            ProductDetailView, 
-                            product_detail_page,
-                            ProductFeaturedListView,
-                            ProductFeaturedDetailView,
-                            ProductSlugDetailView) 
-
-apps_name = 'products'
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_page),
     path('about/', about_page),
 
-
-    # prduct section
-    path('products/', ProductListView.as_view()),
-    path('products-fbv/', product_list_page),
-    path('products/<int:pk>/', ProductDetailView.as_view()),
-    path('products-fbv/<int:pk>/', product_detail_page),
-
-    # product featured section
-    path('featured/', ProductFeaturedListView.as_view()),   
-    path('featured/<int:pk>/', ProductFeaturedDetailView.as_view()),   
-
-    # product slug section
-    path('products/<slug>/', ProductSlugDetailView.as_view()),
+    # including products app
+    path('products/', include('products.urls')),
 
     # authentication section
     path('login/', login_page),
