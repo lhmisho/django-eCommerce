@@ -33,7 +33,7 @@
 	{%endif%}
 		<div class="card-body">
 			<h5 class="card-title">{{instance.title}}</h5>
-			<p class="card-text">{{instance.description}}</p>
+			<p class="card-text">{{instance.description|truncatechars:20}}</p>
 			<a href="{{instance.get_absolute_url}}" class="btn btn-primary">Details</a>
 			<a href="{% url 'products:detail' slug=instance.slug %}" class="btn btn-warning">Url shortcut</a>
 			<!-- <a href="{% url 'products:prduct_pk_detail' pk=instance.pk %}" class="btn btn-warning">Url Pk</a> -->

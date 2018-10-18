@@ -22,16 +22,16 @@ from django.urls import path,re_path, include
 from .views import home_page, contact_page, about_page, login_page, register_page
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home_page),
-    path('about/', about_page),
+    path('', home_page, name='home'),
+    path('about/', about_page, name='about'),
 
     # including products app
     path('products/', include('products.urls')),
 
     # authentication section
-    path('login/', login_page),
-    path('register/', register_page),
-    path('contact/', contact_page),
+    path('login/', login_page, name='login'),
+    path('register/', register_page, name='register'),
+    path('contact/', contact_page, name='contact'),
 ]
 
 if settings.DEBUG:

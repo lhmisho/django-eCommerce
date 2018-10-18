@@ -1,6 +1,19 @@
-{{object.title}} <br/>
-{{object.description}}
+{%include 'base.html'%}
 
-{% if object.image %}
-    <img src="{{object.image.url}}" alt="image">
-{% endif %}
+{% block content%}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>{{object.title}}</h1>
+            <h3>{{"Some Title"|title}}</h3>
+            <p>{{object.timestamp}}</p>
+           <p>{{object.timestamp|timesince}} ago</p>
+           <p>{{object.description|linebreaks|safe}}</p>
+            {% if object.image %}
+                <img src="{{object.image.url}}" alt="image">
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

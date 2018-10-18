@@ -10,6 +10,9 @@
     <title>{% block title %}Hello, world!{%endblock%}</title>
   </head>
   <body>
+    <div class="container-fluid">
+          {% include 'base/navbar.html'%}
+    </div>
     {% block content %}{% endblock %}
     {% include 'base/js.html' %}
   </body>
