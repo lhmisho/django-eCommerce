@@ -22,6 +22,7 @@ def upload_image_path(instance, filename):
     final_filename = f'{new_filename}{ext}'
     return f"Products/{new_filename}/{final_filename}"
 
+# creating my own queryset
 class ProductQueryset(models.query.QuerySet):
 
     def active(self):
