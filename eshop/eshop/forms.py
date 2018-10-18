@@ -15,7 +15,7 @@ class ContactForm(forms.Form):
             raise forms.ValidationError("Email has to be GMAIL")
         return email
 
-# creating class for login form ... next step is manage views.py       
+# creating class for login form ... next step is manage views.py
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput())
@@ -26,7 +26,7 @@ class RegisterForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput())
     password2 = forms.CharField(widget=forms.PasswordInput())
 
-    # check weather the user is already exist ro not 
+    # check weather the user is already exist ro not
     def clean_username(self):
         username = self.cleaned_data.get('username')
         qs = User.objects.filter(username=username)
@@ -56,3 +56,13 @@ class RegisterForm(forms.Form):
             raise forms.ValidationError("Password must be the same!")
         else:
             return data
+
+
+
+
+
+
+
+
+
+

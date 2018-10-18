@@ -17,7 +17,7 @@
 	</div>
 </div>
 <script defer src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script> -->
-<!-- 
+<!--
 <div class="demo-more d-lg-flex justify-content-around">
 	<p><i class="fa fa-users"></i> contribute on github <a href="https://github.com/alphadsy/alpha-ui">alpha-ui</a></p>
 	<p><i class="fa fa-gift"></i> more ui and layout <a href="https://github.com/alphadsy">alphadsy</a></p>
@@ -35,5 +35,7 @@
 			<h5 class="card-title">{{instance.title}}</h5>
 			<p class="card-text">{{instance.description}}</p>
 			<a href="{{instance.get_absolute_url}}" class="btn btn-primary">Details</a>
+			<a href="{% url 'products:detail' slug=instance.slug %}" class="btn btn-warning">Url shortcut</a>
+			<!-- <a href="{% url 'products:prduct_pk_detail' pk=instance.pk %}" class="btn btn-warning">Url Pk</a> -->
 		</div>
 	</div>
