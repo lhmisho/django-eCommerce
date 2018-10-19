@@ -5,20 +5,18 @@
         <h1>{{ title }}</h1>
         <h1>Hello, world!  it's working</h1>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <p>{{ content }}</p>
-            </div>
+    <div class="row">
+        <div class="col">
+            <h2>{{ content }}</h2>
         </div>
-        <!-- {% if request.user.is_authenticated %} -->
-        <!-- {{ premium_content }} -->
-        <div class="row">
-            <div class="col">
-                <h1>Premium Content</h1>
-                {{ premium_content }}
-            </div>
-        </div>
-        {% endif %}
     </div>
+    <!-- {% if request.user.is_authenticated %} -->
+    <!-- {{ premium_content }} -->
+    <div class="row">
+        <div class="col">
+            <h1>Premium Content</h1>
+            {{ premium_content }}
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}
