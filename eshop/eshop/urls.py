@@ -28,6 +28,9 @@ urlpatterns = [
     # including products app
     path('products/', include('products.urls')),
 
+    # including search app
+    path('search/', include('search.urls')),
+
     # authentication section
     path('login/', login_page, name='login'),
     path('register/', register_page, name='register'),
