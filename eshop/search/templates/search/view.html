@@ -7,6 +7,7 @@
         {% if query %}
           <div class="col-12">
             Result for <b>{{ query }}</b>
+            <p id="demo"></p>
           </div>
         {% else %}
           <div class="col-12 col-md-6 mx-auto">
@@ -29,5 +30,5 @@
 {{ paginator }}
 {{ is_paginated }}
 {{ object_list }}     -->
-</div>
+
 {% endblock %}
