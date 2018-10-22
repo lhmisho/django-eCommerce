@@ -16,13 +16,12 @@
     </div>
     <script>
       function myFunction() {
-          var x = document.getElementById("myInput");
-          document.getElementById("demo").innerHTML = "You are searching for: " + x.value;
           console.log(x.value);
+          var x = document.getElementById("myInput");
+          document.getElementById("demo").innerHTML = x.value;
           console.log();
       }
     </script>
     {% include 'base/js.html' %}
-
   </body>
 </html>

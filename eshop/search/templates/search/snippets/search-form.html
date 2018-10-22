@@ -2,7 +2,8 @@
     <div class="input-group">
         <input class="form-control" type="search" id="myInput" onsearch="myFunction()" name="q" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
         <span class="input-group-btn">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <button onsearch="myFunction()" class="btn btn-outline-success" type="submit">Search</button>
         </span>
     </div>
 </form>
+
