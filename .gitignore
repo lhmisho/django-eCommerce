@@ -1,0 +1,7 @@
+# ignore all logs
+*.log
+*.so
+*.pyc
+*/bin/
+*/lib/
+*.venv/
