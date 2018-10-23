@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from .forms import RegisterForm, LoginForm, ContactForm
 
 def home_page(request):
+    print(request.session.get("firstName", "Unknown")) # get the session property .. like first name
     title = "I am from Home Page"
     content = "Welcome to the home page"
     context = {
@@ -69,9 +70,9 @@ def login_page(request):
             return redirect('/login')
         else:
             print("Error")
-    
-    
-    
+
+
+
     return render(request, 'registration/login.html', context)
 
 User = get_user_model()
