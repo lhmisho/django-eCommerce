@@ -31,6 +31,8 @@ urlpatterns = [
     # including search app
     path('search/', include('search.urls')),
 
+    # including carts app
+    path('cart/', include('carts.urls')),
     # authentication section
     path('login/', login_page, name='login'),
     path('register/', register_page, name='register'),
