@@ -9,8 +9,8 @@ def random_string_generator(size=10, chars=string.ascii_lowercase + string.digit
 
 # creating unique order id for order apps
 def unique_order_id_generator(instance, new_slug=None):
-    """ 
-    This is for django project with an order_id field 
+    """
+    This is for django project with an order_id field
     """
     new_order_id = random_string_generator().upper() # key : 1DSWA3FG somthing like that
 
@@ -22,9 +22,9 @@ def unique_order_id_generator(instance, new_slug=None):
 
 
 def unique_slug_generator(instance, new_slug=None):
-    """ 
-    This is for django project with and it's assume that your 
-    instance has a model with a slug field and title character (char) field 
+    """
+    This is for django project with and it's assume that your
+    instance has a model with a slug field and title character (char) field
     """
     if new_slug is not None:
         slug = new_slug
