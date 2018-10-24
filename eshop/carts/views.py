@@ -10,23 +10,17 @@ def crete_cart(user=None):
     return cart_obj
 
 def cart_home(request):
-    request.session['cart_id'] = "12"
     cart_id = request.session.get("cart_id", None)
+    qs = Cart.objects.filter(id=cart_id)
 
-    if cart_id is None:
-        cart_obj = crete_cart()                     # creating cart object for user
-        request.session['cart_id'] = cart_obj.id    # geting the id of cart_obj
-
+    # if the id is exits than go else create one
+    if qs.count() == 1:
+        cart_obj = qs.first()
+        if request.user.is_authenticated and cart_obj.user is None:
+            cart_obj.user = request.user
+            cart_obj.save()
     else:
-        qs = Cart.objects.filter(id=cart_id)
-
-        # if the id is exits than go else create one
-        if qs.count() == 1:
-            print("Cart id exists")
-            cart_obj = qs.first()
-        else:
-            cart_obj = crete_cart()
-            print("New Cart created")
-            request.session['cart_id'] = cart_obj.id
+        cart_obj = Cart.objects.new_cart(user=request.user)
+        request.session['cart_id'] = cart_obj.id
 
     return render(request, 'carts/cart_home.html', {})
