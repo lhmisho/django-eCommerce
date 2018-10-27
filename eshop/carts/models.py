@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from products.models import Product
+from django.db.models.signals import m2m_changed, pre_save
 # Create your models here.
 
 User = settings.AUTH_USER_MODEL
@@ -21,11 +22,11 @@ class CartManager(models.Manager):
                 cart_obj.save()
         else:
             # if there is some issue than it's might me ( cart_obj = self.new_cart(user=request.user) )
-            cart_obj = self.new_cart(user=request.user)
+            cart_obj = Cart.new_cart(user=request.user)
             new_obj = True
             request.session['cart_id'] = cart_obj.id
 
-        return cart_id, new_obj
+        return cart_obj, new_obj
     def new_cart(self, user=None):
         print(user)
         user_obj = None
@@ -37,10 +38,44 @@ class CartManager(models.Manager):
 class Cart(models.Model):
     user        = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     products    = models.ManyToManyField(Product, blank=True)
+    subtotal    = models.DecimalField(default=0.00, decimal_places=2, max_digits=100)
     total       = models.DecimalField(default=0.0, decimal_places=2, max_digits=100)
     updated     = models.DateTimeField(auto_now=True)
     timestamp   = models.DateTimeField(auto_now_add=True)
 
     objects = CartManager()
+
     def __str__(self):
         return str(self.id)
+
+def m2m_changed_cart_receiver(sender, instance, action, *args, **kwargs):
+    # print(action)
+    # print(instance.products.all())
+    # print(instance.total)
+    #if action == 'post_add' or action == 'post_remove' or action == 'post_clear':
+    products = instance.products.all()
+    total = 0
+    for x in products:
+        total += x.price
+    if instance.subtotal != total:
+        instance.subtotal = total
+        instance.save()
+    print(total)
+m2m_changed.connect(m2m_changed_cart_receiver, sender=Cart.products.through)
+
+def pre_save_cart_receiver(sender, instance, *args, **kwargs):
+    instance.total = instance.subtotal + 10
+
+pre_save.connect(pre_save_cart_receiver, sender=Cart)
+
+
+
+
+
+
+
+
+
+
+
+
