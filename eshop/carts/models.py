@@ -48,6 +48,12 @@ class Cart(models.Model):
     def __str__(self):
         return str(self.id)
 
+"""
+using m2m signal we are managing calcultion of cart.
+"""
+
+
+# creating signal so that we can calculate our products at the time of shopping
 def m2m_changed_cart_receiver(sender, instance, action, *args, **kwargs):
     # print(action)
     # print(instance.products.all())
@@ -63,6 +69,7 @@ def m2m_changed_cart_receiver(sender, instance, action, *args, **kwargs):
     print(total)
 m2m_changed.connect(m2m_changed_cart_receiver, sender=Cart.products.through)
 
+# calculating subtotal like delevary cost etc .....
 def pre_save_cart_receiver(sender, instance, *args, **kwargs):
     instance.total = instance.subtotal + 10
 
