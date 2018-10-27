@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 
 # importing from .models
 from .models import Product
-
+from carts.models import Cart
 
 # featured product section
 class ProductFeaturedListView(ListView):
@@ -28,6 +28,17 @@ class ProductFeaturedDetailView(DetailView):
 
 # slug product section
 class ProductSlugDetailView(DetailView):
+
+##########################################################################################
+    # passing cart to the context so that we can add product to the cart
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProductSlugDetailView, self).get_context_data(*args, **kwargs)
+        request = self.request
+        cart_obj, new_obj = Cart.objects.new_or_get(request)
+        context['cart'] = cart_obj
+        return context
+##########################################################################################
+
     # #queryset = Product.objects.all()
     template_name = "products/product_detail.html"
     def get_object(self, *args, **kwargs):
@@ -102,7 +113,7 @@ def product_detail_page(request,pk=None, *args, **kwargs):
     # except:
     #     print("idiot go anyware else")
 
-    # get_by_id is my custom query ... 
+    # get_by_id is my custom query ...
     instance   = Product.objects.get_by_id(pk)
     print(instance)
     if instance is None:
