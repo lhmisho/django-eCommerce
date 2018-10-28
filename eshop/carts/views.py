@@ -8,7 +8,10 @@ from products.models import Product
 
 def cart_home(request):
     cart_obj, new_obj = Cart.objects.new_or_get(request)
-    return render(request, 'carts/cart_home.html', {})
+    context = {
+        "cart" : cart_obj,
+    }
+    return render(request, 'carts/cart_home.html', context)
 
 # Update view for cart
 def cart_update(request):
