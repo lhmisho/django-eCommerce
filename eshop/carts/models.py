@@ -27,7 +27,6 @@ class CartManager(models.Manager):
             request.session['cart_id'] = cart_obj.id
 
         return cart_obj, new_obj
-
     def new_cart(self, user=None):
         print(user)
         user_obj = None
@@ -72,10 +71,8 @@ m2m_changed.connect(m2m_changed_cart_receiver, sender=Cart.products.through)
 
 # calculating subtotal like delevary cost etc .....
 def pre_save_cart_receiver(sender, instance, *args, **kwargs):
-    if instance.subtotal > 0:
-        instance.total = instance.subtotal + 10
-    else:
-        instance.total = 0.00
+    instance.total = instance.subtotal + 10
+
 pre_save.connect(pre_save_cart_receiver, sender=Cart)
 
 
