@@ -13,15 +13,9 @@
                 <img src="{{object.image.url}}" alt="image">
             {% endif %}
         </div>
-
+        <!-- adding cart form  -->
         <div class="col-12 col-md-6">
-            {{cart}}
-            <!-- abc should be object -->
-            {%if object in cart.products.all %}
-                <button class="btn btn-link">remove?</button>
-            {%else%}
-                <button class="btn btn-success">Add to cart</button>
-            {%endif%}
+            {% include 'products/snippets/update_cart.html' with product=object cart=cart%}
         </div>
     </div>
 </div>
