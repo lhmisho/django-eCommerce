@@ -15,7 +15,10 @@
             <tbody>
               <tr>
                 <th scope="row">{{forloop.counter}}</th>
-                <td><a href="{{product.get_absolute_url}}">{{product.title}}</a><small><a href="">  Remove?</a></small></td>
+                <td>
+                  <a href="{{product.get_absolute_url}}">{{product.title}}</a>
+                  {% include 'products/snippets/update_cart.html' with product=product cart=cart in_cart=True %}
+                </td>
                 <td>{{product.price}}</td>
               </tr>
             {%endfor%}
