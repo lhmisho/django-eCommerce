@@ -3,7 +3,7 @@ import random
 from django.db.models import Q   # importing for search look-up
 from django.db import models
 from django.urls import reverse
-from .utils import unique_slug_generator
+from eshop.utils import unique_slug_generator
 from django.db.models.signals import pre_save, post_save
 # Create your models here.
 
