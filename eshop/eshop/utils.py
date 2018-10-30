@@ -10,7 +10,7 @@ def random_string_generator(size=10, chars=string.ascii_lowercase + string.digit
 # creating unique order id for order apps
 def unique_order_id_generator(instance):
     """
-    This is for django project with an order_id field
+    This is for generating unique order_id for order processing on orders/models.py
     """
     new_order_id = random_string_generator().upper() # key : 1DSWA3FG somthing like that
 
