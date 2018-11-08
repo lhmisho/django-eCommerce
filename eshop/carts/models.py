@@ -1,3 +1,4 @@
+import math
 from django.db import models
 from django.conf import settings
 from products.models import Product
@@ -28,7 +29,6 @@ class CartManager(models.Manager):
 
         return cart_obj, new_obj
     def new_cart(self, user=None):
-        print(user)
         user_obj = None
         if user is not None:
             if user.is_authenticated:
@@ -55,10 +55,6 @@ using m2m signal we are managing calcultion of cart.
 
 # creating signal so that we can calculate our products at the time of shopping
 def m2m_changed_cart_receiver(sender, instance, action, *args, **kwargs):
-    # print(action)
-    # print(instance.products.all())
-    # print(instance.total)
-    #if action == 'post_add' or action == 'post_remove' or action == 'post_clear':
     products = instance.products.all()
     total = 0
     for x in products:
@@ -66,12 +62,11 @@ def m2m_changed_cart_receiver(sender, instance, action, *args, **kwargs):
     if instance.subtotal != total:
         instance.subtotal = total
         instance.save()
-    print(total)
 m2m_changed.connect(m2m_changed_cart_receiver, sender=Cart.products.through)
 
 # calculating subtotal like delevary cost etc .....
 def pre_save_cart_receiver(sender, instance, *args, **kwargs):
-    instance.total = instance.subtotal + 10
+    instance.total = math.fsum([instance.subtotal,1.8])
 
 pre_save.connect(pre_save_cart_receiver, sender=Cart)
 
