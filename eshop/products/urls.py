@@ -21,8 +21,8 @@ urlpatterns = [
     # path('featured/<int:pk>/', ProductFeaturedDetailView.as_view()),
 
     # product slug section
-    path('<int:pk>/', ProductDetailView.as_view(),name='prduct_pk_detail'),
-    path('', ProductListView.as_view(),name='product_list'),
-    path('<slug>/', ProductSlugDetailView.as_view(),name='detail'),
+    path('products/<int:pk>/', ProductDetailView.as_view(),name='prduct_pk_detail'),
+    path('products/', ProductListView.as_view(),name='product_list'),
+    path('products/<slug>/', ProductSlugDetailView.as_view(),name='detail'),
 
 ]

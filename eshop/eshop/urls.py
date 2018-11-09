@@ -19,14 +19,17 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path,re_path, include
 
-from .views import home_page, contact_page, about_page, login_page, register_page
+from .views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_page, name='home'),
     path('about/', about_page, name='about'),
 
     # including products app
-    path('products/', include('products.urls')),
+    path('', include('products.urls')),
+
+    # including login apps
+    path('', include('accounts.urls')),
 
     # including search app
     path('search/', include('search.urls')),
@@ -34,8 +37,6 @@ urlpatterns = [
     # including carts app
     path('cart/', include('carts.urls')),
     # authentication section
-    path('login/', login_page, name='login'),
-    path('register/', register_page, name='register'),
     path('contact/', contact_page, name='contact'),
 ]
 

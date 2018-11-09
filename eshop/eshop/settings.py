@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'tags',
     'carts',
     'orders',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -120,6 +121,8 @@ USE_L10N = True
 USE_TZ = True
 
 
+LOGOUT_REDIRECT_URL = '/login/'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
@@ -129,6 +132,8 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static_my_proj"),
 ]
+
+
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root")
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")

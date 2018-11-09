@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # import LoginForm, RegisterForm, ContactForm
-from .forms import RegisterForm, LoginForm, ContactForm
+from .forms import ContactForm
 
 def home_page(request):
     print(request.session.get("firstName", "Unknown")) # get the session property .. like first name
@@ -38,54 +38,4 @@ def contact_page(request):
         "form"      : contact_form              # passing the form instance to context so that we can access it in view.html as {{form}}
     }
 
-    if contact_form.is_valid():
-        print(contact_form.cleaned_data)
-    # checking is this request is POST or not
-    # if request.method == "POST":
-    #     print(request.POST)          # printing the requested value as dict
-    #     print(request.POST.get('fullname'))   # printing the acutal requested value
-    #     print(request.POST.get('email'))
-    #     print(request.POST.get('content'))
-
     return render(request, 'contact/view.html', context)
-
-def login_page(request):
-    form = LoginForm(request.POST or None)
-    context = {
-            'form' : form
-    }
-    #print(request.user.is_authenticated)
-    if form.is_valid():
-        print("User is not loged in")
-        #print(form.cleaned_data)
-        # geting form data from the form
-        username = form.cleaned_data.get("username")
-        password = form.cleaned_data.get("password")
-        user = authenticate(request, username=username, password=password)
-        print(user)
-        if user is not None:
-            #print(request.user.is_authenticated)
-            login(request, user)
-            #context['form'] = LoginForm()
-            return redirect('/login')
-        else:
-            print("Error")
-
-
-
-    return render(request, 'registration/login.html', context)
-
-User = get_user_model()
-def register_page(request):
-    form = RegisterForm(request.POST or None)
-    context = {
-            'form' : form
-    }
-    if form.is_valid():
-        username = form.cleaned_data.get('username')
-        email    = form.cleaned_data.get('email')
-        password = form.cleaned_data.get('password')
-        # creating new user
-        new_user = User.objects.create(username, email, password)
-        print(new_user)
-    return render(request, 'registration/register.html', context)
