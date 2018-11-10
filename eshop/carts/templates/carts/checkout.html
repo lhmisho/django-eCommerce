@@ -1,8 +1,19 @@
 {% extends 'base.html'%}
-
-{% block content%}
-    <h2>Checkout</h2>
-<p>Cart total: {{object.cart.total}}</p>
-<p>Shipping toatal: {{object.shipping_total}}</p>
-<p>Oreder total: {{object.total}}</p>
+{%block content%}
+    {% if not billing_profile %}
+        <div class="row text-center">
+            <div class="col-12 col-md-6">
+                <p class="lead">Login</p>
+                {% include 'snippets/login.html' with form=login_form next_uri=request.build_absolute_uri %}
+            </div>
+            <div class="col-12 col-md-6">
+                <p class="lead">Continue as guest</p>
+            </div>
+        </div>
+    {%else%}
+        <h2>Checkout</h2>
+        <p>Cart total: {{object.cart.total}}</p>
+        <p>Shipping toatal: {{object.shipping_total}}</p>
+        <p>Oreder total: {{object.total}}</p>
+    {%endif%}
 {%endblock%}
