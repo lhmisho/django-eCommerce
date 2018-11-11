@@ -7,7 +7,7 @@
 
     </div>
 {% endfor %}
-    <form action="{%url 'accounts:login'%}" method="POST">{% csrf_token %}
+    <form action="{% if action_url %}{{ action_url }}{% else %}{% url 'accounts:login' %}{% endif %}" method="POST">{% csrf_token %}
         {% if next_uri %}
             <input type="hidden" name="next" value="{{next_uri}}">
         {%endif%}

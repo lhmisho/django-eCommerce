@@ -8,6 +8,8 @@
             </div>
             <div class="col-12 col-md-6">
                 <p class="lead">Continue as guest</p>
+                {% url 'accounts:guest_register' as guest_register_url %}
+                {% include 'snippets/login.html' with form=guest_form next_uri=request.build_absolute_uri action_url=guest_register_url %}
             </div>
         </div>
     {%else%}

@@ -2,13 +2,17 @@ from django import forms
 from django.contrib.auth import get_user_model
 User = get_user_model()
 # creating class for login form ... next step is manage views.py
+
+class GuestForm(forms.Form):
+    email = forms.EmailField()
+
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput())
 
 class RegisterForm(forms.Form):
     username = forms.CharField()
-    email = forms.CharField(widget=forms.EmailInput)
+    email    = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput())
     password2 = forms.CharField(widget=forms.PasswordInput())
 
