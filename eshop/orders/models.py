@@ -13,6 +13,17 @@ ORDER_STATUS_CHOICE = (
     ('refounded', 'REFOUNDED')
 )
 
+class OrderManager(models.Manager):
+    def new_or_get(self, billing_profile, cart_obj):
+        created = False
+        qs = self.get_queryset().filter(billing_profile=billing_profile, cart=cart_obj, active=True)
+        if qs.count() == 1:
+            obj = qs.first()
+        else:
+            obj = self.model.objects.create(billing_profile=billing_profile, cart=cart_obj)
+            created = True
+        return obj, created
+
 class Order(models.Model):
     order_id = models.CharField(max_length=120, blank=True)
     #billing_profile     =
@@ -38,11 +49,17 @@ class Order(models.Model):
     def __str__(self):
         return self.order_id
 
+
+    objects = OrderManager()
+
 # using pre_save singnals with unique_order_generator for saving the unique order id
 def pre_save_order_id(sender, instance, *args, **kewarg):
     if not instance.order_id:
         instance.order_id = unique_order_id_generator(instance)
 
+    qs = Order.objects.filter(cart=instance.cart).exclude(billing_profile=instance.billing_profile)
+    if qs.exists():
+        qs.update(active=False)
 pre_save.connect(pre_save_order_id , sender=Order)
 
 
