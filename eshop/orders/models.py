@@ -1,9 +1,13 @@
 import math as M
+
 from django.db import models
-from django.db.models.signals import pre_save, post_save
-from eshop.utils import unique_order_id_generator
-from carts.models import Cart
+from django.db.models.signals import post_save, pre_save
+
+from address.models import Address
 from billing.models import BillingProfile
+from carts.models import Cart
+from eshop.utils import unique_order_id_generator
+
 # Create your models here.
 
 ORDER_STATUS_CHOICE = (
@@ -16,7 +20,7 @@ ORDER_STATUS_CHOICE = (
 class OrderManager(models.Manager):
     def new_or_get(self, billing_profile, cart_obj):
         created = False
-        qs = self.get_queryset().filter(billing_profile=billing_profile, cart=cart_obj, active=True)
+        qs = self.get_queryset().filter(billing_profile=billing_profile, cart=cart_obj, active=True, status='created')
         if qs.count() == 1:
             obj = qs.first()
         else:
@@ -27,8 +31,8 @@ class OrderManager(models.Manager):
 class Order(models.Model):
     order_id = models.CharField(max_length=120, blank=True)
     #billing_profile     =
-    #shipping_address    =
-    #billing_address     =
+    shipping_address    = models.ForeignKey(Address,related_name="shipping_address", on_delete=models.CASCADE, blank=True, null=True)
+    billing_address     = models.ForeignKey(Address,related_name="billing_address", on_delete=models.CASCADE, blank=True, null=True)
     billing_profile     = models.ForeignKey(BillingProfile, on_delete=models.CASCADE, blank=True, null=True)
     cart    = models.ForeignKey(Cart, on_delete=models.CASCADE)
     status  = models.CharField(max_length=120, default='created', choices=ORDER_STATUS_CHOICE)
@@ -45,6 +49,20 @@ class Order(models.Model):
         self.total = new_total
         self.save()
         return new_total
+
+    def check_done(self):
+        billing_profile = self.billing_profile
+        billing_address = self.billing_address
+        shipping_address = self.shipping_address
+
+        if billing_profile and billing_address and shipping_address and self.total > 0:
+            return True
+        return False
+    def mark_paid(self):
+        if self.check_done():
+            self.status = "paid"
+            self.save()
+        return self.status
 
     def __str__(self):
         return self.order_id
