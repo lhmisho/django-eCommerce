@@ -1,0 +1,20 @@
+{% comment %}
+{% for message in messages %}
+    <div class="alert alert-success">
+        <a class="close" href="#" data-dismiss="alert">×</a>
+
+        {{ message }}
+
+    </div>
+{% endfor %}
+{% endcomment %}
+    <form action="{% if action_url %}{{ action_url }}{% else %}{% url 'accounts:login' %}{% endif %}" method="POST">{% csrf_token %}
+        {% if next_uri %}
+            <input type="hidden" name="next" value="{{next_uri}}">
+        {% endif %}
+        {%if address_type %}
+            <input type="hidden" name="address_type" value="{{ address_type }}">
+        {% endif %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-info">Submit</button>
+    </form>

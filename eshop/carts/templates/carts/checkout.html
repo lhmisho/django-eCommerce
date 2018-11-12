@@ -13,14 +13,34 @@
                 {% include 'snippets/login.html' with form=guest_form next_uri=request.build_absolute_uri action_url=guest_register_url %}
             </div>
         </div>
-    {%else%}
-        {%if not object.address_form and not billing_address_form %}
+    {% else %}
+        {% if not object.shipping_address %}
+          <div class="row">
+              <div class="col-md-6 mx-auto col-10">
+                <p class="lead">Shipping Address</p>
+                <hr>
+                {% url 'checkout_address_created' as checkout_address_created %}
+                {% include 'address/form.html' with form=address_form next_uri=request.build_absolute_uri action_url=checkout_address_created address_type='shipping' %}
+              </div>
+          </div>
+
+          {% elif not object.billing_address_form %}
+
+            <div class="row">
+                <div class="col-md-6 mx-auto col-10">
+                    <p class="lead">Billing Address</p>
+                    <hr>
+                    {% url 'checkout_address_created' as checkout_address_created %}
+                    {% include 'address/form.html' with form=address_form next_uri=request.build_absolute_uri action_url=checkout_address_created address_type='billing' %}
+                </div>
+            </div>
 
         {% else %}
-            <h2>Checkout</h2>
+            <h2>Finalize Checkout</h2>
             <p>Cart total: {{object.cart.total}}</p>
             <p>Shipping toatal: {{object.shipping_total}}</p>
             <p>Oreder total: {{object.total}}</p>
+            <button>Checkout</button>
         {% endif %}
     {%endif%}
 {%endblock%}

@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path,re_path, include
 
+from address.views import checkout_address_created_view
 from .views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -38,6 +39,9 @@ urlpatterns = [
     path('cart/', include('carts.urls')),
     # authentication section
     path('contact/', contact_page, name='contact'),
+
+    # mapping address view
+    path('checkout_address_created_view/', checkout_address_created_view, name='checkout_address_created'),
 ]
 
 if settings.DEBUG:
