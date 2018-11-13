@@ -17,27 +17,45 @@
         {% if not object.shipping_address %}
 
             <div class="row">
-                <div class="col-md-6 mx-auto col-10">
+                <div class="col-12">
                     <p class="lead">Shipping Address</p>
                     <hr>
+                </div>
+                <div class="col-6">
+
                     {% url 'checkout_address_created' as checkout_address_created %}
                     {% include 'address/form.html' with form=address_form next_uri=request.build_absolute_uri action_url=checkout_address_created address_type='shipping' %}
+
                 </div>
+                {% if address_qs.exists %}
+                    <div class="col-6">
+                        {% url "checkout_address_reuse" as checkout_address_reuse %}
+                        {% include 'address/previous_address.html' with address_qs=address_qs  next_uri=request.build_absolute_uri action_url=checkout_address_reuse address_type='shipping' %}
+                    </div>
+                {% endif %}
             </div>
+
 
         {% elif not object.billing_address %}
 
             <div class="row">
-                <div class="col-md-6 mx-auto col-10">
+                <div class="col-12">
                     <p class="lead">Billing Address</p>
                     <hr>
+                </div>
+                <div class="col-6">
                     {% url 'checkout_address_created' as checkout_address_created %}
                     {% include 'address/form.html' with form=address_form next_uri=request.build_absolute_uri action_url=checkout_address_created address_type='billing' %}
                 </div>
+                {% if address_qs.exists %}
+                    <div class="col-6">
+                        {% url "checkout_address_reuse" as checkout_address_reuse %}
+                        {% include 'address/previous_address.html' with address_qs=address_qs  next_uri=request.build_absolute_uri action_url=checkout_address_reuse address_type='billing'%}
+                    </div>
+                {% endif %}
             </div>
 
         {% else %}
-
             <h2>Finalize Checkout</h2>
             <p>Cart total: {{object.cart.total}}</p>
             <p>Shipping toatal: {{object.shipping_total}}</p>

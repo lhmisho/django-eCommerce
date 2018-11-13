@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path,re_path, include
 
-from address.views import checkout_address_created_view
+from address.views import checkout_address_created_view,checkout_address_reuse_view
 from .views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,6 +42,7 @@ urlpatterns = [
 
     # mapping address view
     path('checkout_address_created_view/', checkout_address_created_view, name='checkout_address_created'),
+    path('checkout/address/reuse/view/', checkout_address_reuse_view, name='checkout_address_reuse'),
 ]
 
 if settings.DEBUG:

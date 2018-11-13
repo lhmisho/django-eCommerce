@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.utils.http import is_safe_url
 
+from .models import Address
 from .forms import AddressForm
 from billing.models import BillingProfile
 # Create your views here.
@@ -32,10 +33,32 @@ def checkout_address_created_view(request):
             print("some error")
             redirect("cart:checkout")
 
-
         if is_safe_url(redirect_path, request.get_host()):
             return redirect(redirect_path)
-        else:
-            return redirect("cart:checkout")
 
         return redirect("cart:checkout")
+
+
+
+
+def checkout_address_reuse_view(request):
+    if request.user.is_authenticated:
+        context = {}
+        next_ = request.GET.get('next')
+        next_post = request.POST.get('next')
+        redirect_path = next_ or next_post or None
+
+        if request.method == "POST":
+            print(request.POST)
+            shipping_address = request.POST.get("shipping_address", None)
+            address_type = request.POST.get('address_type', 'shipping')
+            billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
+            if shipping_address is not None:
+                qs = Address.objects.filter(billing_profile=billing_profile, id=shipping_address)
+                # import pdb; pdb.set_trace()
+                if qs.exists():
+                    request.session[address_type + "_address_id"] = shipping_address
+                if is_safe_url(redirect_path, request.get_host()):
+                    return redirect(redirect_path)
+
+    return redirect("cart:checkout")
