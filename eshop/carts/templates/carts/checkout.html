@@ -57,11 +57,15 @@
 
         {% else %}
             <h2>Finalize Checkout</h2>
+            <p>Total product : {{ object.cart.products.all.count }}</p>
+            <p>Cart Item: {%for product in object.cart.products.all %} {{ product|upper }}{% if not foorloop.last %}, {% endif %}{% endfor %}</p>
+            <p>Shipping Address: {{object.shipping_address.get_address}}</p>
+            <p>Billing Address: {{object.billing_address.get_address}}</p>
             <p>Cart total: {{object.cart.total}}</p>
             <p>Shipping toatal: {{object.shipping_total}}</p>
             <p>Oreder total: {{object.total}}</p>
             <form class="form" method="POST" action="">{% csrf_token %}
-                <button type="submit">Checkout</button>
+                <button type="submit" class="btn btn-success">Checkout</button>
             </form>
         {% endif %}
     {%endif%}
