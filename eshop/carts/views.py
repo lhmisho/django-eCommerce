@@ -1,6 +1,6 @@
 
 from django.shortcuts import redirect, render
-
+from django.http import JsonResponse
 from accounts.forms import GuestForm, LoginForm
 from accounts.models import GuestEmail
 from address.forms import AddressForm
@@ -38,11 +38,23 @@ def cart_update(request):
         # if the product_obj is exists in cart than we can remove
         if product_obj in cart_obj.products.all():
             cart_obj.products.remove(product_obj)
+            data_added = False
         # if the product_obj is exists in cart than we can add it
         else:
             cart_obj.products.add(product_obj)
+            data_added = True
+
         #return redirect(product_obj.get_absolute_url())
         request.session['total_product'] = cart_obj.products.count()
+
+        if request.is_ajax():
+            print("Ajax request")
+            json_data = {
+                'added'     : data_added,
+                'removed'   : not data_added,
+                'itemCount' : cart_obj.products.count(),
+            }
+            return  JsonResponse(json_data)
     return redirect("cart:home")
 
 def checkout_home(request):
