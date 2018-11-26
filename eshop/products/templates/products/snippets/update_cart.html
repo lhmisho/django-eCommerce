@@ -1,4 +1,4 @@
-<form class="form form-product-ajax" method="POST" action="{%url "cart:update" %}">
+<form class="form form-product-ajax" method="POST" action='{%url "cart:update" %}' data-endpoint='{%url "cart:update" %}'>
     {% csrf_token %}
     <input type="hidden" name="product_id" value="{{product.id}}">
         {%if in_cart %}

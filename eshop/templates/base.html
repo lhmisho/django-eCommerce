@@ -28,10 +28,11 @@
             var $productForm = $('.form-product-ajax')
             $productForm.submit(function (e) {
                 e.preventDefault();
-                console.log("Form is not submitting")
+                //console.log("Form is not submitting")
                 var $thisForm = $(this)
                 var $httpMethod      = $(this).attr("method");
-                var $endpointAction  = $(this).attr("action");
+                //var $endpointAction  = $(this).attr("action");
+                var $endpointAction  = $(this).attr("data-endpoint");
                 var $formData        = $(this).serialize();
 
                 $.ajax({
@@ -47,6 +48,10 @@
                         }
                         var $cartItemCount = $(".itemCount")
                         $cartItemCount.text(data.itemCount)
+                        var $currentPath = window.location.href
+                        if($currentPath.indexOf("cart")){
+                            refreshCart();
+                        }
 
                     },
                     error: function (errorData) {
@@ -56,6 +61,29 @@
 
                 })
             })
+            function refreshCart() {
+                console.log("In current curt!");
+                var $cartTable = $(".cart-table")
+                var $cartTableBody = $(".cart-table-body")
+
+                $cartTableBody.html("<h1>Changed</h1>")
+
+                var $refreshCartUrl     = "/api/cart/"
+                var $refreshCartMethod  = "GET"
+                var $data = {};
+
+                $.ajax({
+                    url:  $refreshCartUrl,
+                    method: $refreshCartMethod,
+                    data  : $data,
+                    success : function (data) {
+                        console.log("Refresh SUCCESS")
+                    },
+                    error : function (errorData) {
+                        console.log("Error!")
+                    }
+                })
+            }
         })
     </script>
   </body>

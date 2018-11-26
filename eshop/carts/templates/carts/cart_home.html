@@ -3,7 +3,7 @@
 {% block content%}
     <h2>Cart</h2>
     {% if cart.products.exists %}
-        <table class="table table-striped">
+        <table class="table table-striped cart-table">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -12,7 +12,7 @@
               </tr>
             </thead>
             {% for product in cart.products.all %}
-            <tbody>
+            <tbody class="cart-table-body">
               <tr>
                 <th scope="row">{{forloop.counter}}</th>
                 <td>
