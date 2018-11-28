@@ -13,9 +13,8 @@
             </thead>
 
             <tbody class="cart-table-body">
-            <div class="cart-product">
             {% for product in cart.products.all %}
-              <tr>
+              <tr class="cart-product">
                 <th scope="row">{{forloop.counter}}</th>
                 <td>
                   <a href="{{product.get_absolute_url}}">{{product.title}}</a>
@@ -24,7 +23,6 @@
                 <td>{{product.price}}</td>
               </tr>
             {%endfor%}
-            </div>
               <tr>
                 <td colspan="2"></td>
                   <td><b>Subtotal </b>$<span class="cart-subtotal">{{cart.subtotal}}</span></td>
