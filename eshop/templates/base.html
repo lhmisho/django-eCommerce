@@ -83,10 +83,10 @@
                         console.log(data)
                         if(data.products.length > 0){
                             $productsRows.html("")
-                            i = 1
+                            i = data.products.length
                             $.each(data.products, function (index,value) {
-                                $cartTableBody.prepend("<tr><th scope=\"row\">"+ i +"</th><td><a href=\"{{product.get_absolute_url}}\">"+ value.title +"</a></td><td>"+ value.price +"</td></tr>")
-                                i ++
+                                $cartTableBody.prepend("<tr><th scope=\"row\">"+ i +"</th><td><a href='"+ value.url +"'>"+ value.title +"</a></td><td>"+ value.price +"</td></tr>")
+                                i --
                             })
                             $cartTableBody.find('.cart-subtotal').text(data.subtotal)
                             $cartTableBody.find('.cart-total').text(data.total)
