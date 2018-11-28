@@ -21,6 +21,7 @@ from django.urls import path,re_path, include
 
 from address.views import checkout_address_created_view,checkout_address_reuse_view
 from .views import *
+from carts.views import cart_detail_api_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_page, name='home'),
@@ -37,6 +38,8 @@ urlpatterns = [
 
     # including carts app
     path('cart/', include('carts.urls')),
+    path('api/cart/', cart_detail_api_view, name='api-cart'),
+
     # authentication section
     path('contact/', contact_page, name='contact'),
 

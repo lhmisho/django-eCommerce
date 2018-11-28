@@ -11,8 +11,10 @@
                 <th scope="col">Product Price</th>
               </tr>
             </thead>
-            {% for product in cart.products.all %}
+
             <tbody class="cart-table-body">
+            <div class="cart-product">
+            {% for product in cart.products.all %}
               <tr>
                 <th scope="row">{{forloop.counter}}</th>
                 <td>
@@ -22,13 +24,14 @@
                 <td>{{product.price}}</td>
               </tr>
             {%endfor%}
+            </div>
               <tr>
                 <td colspan="2"></td>
-                <td><b>Subtotal </b>{{cart.subtotal}}</td>
+                  <td><b>Subtotal </b>$<span class="cart-subtotal">{{cart.subtotal}}</span></td>
               </tr>
               <tr>
                 <td colspan="2"></td>
-                <td><b>Total </b>{{cart.total}}</td>
+                <td><b>Total </b>$ <span class="cart-total">{{cart.total}}</span></td>
               </tr>
               <tr>
                 <td colspan="2"></td>
