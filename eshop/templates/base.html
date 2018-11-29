@@ -24,7 +24,24 @@
     </script>
     {% include 'base/js.html' %}
     <script type="text/javascript">
+        // auto search
         $(document).ready(function () {
+            var $searchForm = $(".search-form")
+            var $searchInput = $searchForm.find("[name='q']")
+            var $typingTimer;
+            var $typingInterval = 1500
+
+            $searchInput.keyup(function (event) {
+                clearTimeout($typingTimer)
+                $typingTimer = setTimeout(performSearch,$typingInterval)
+            })
+            
+            function performSearch() {
+                var $query = $searchInput.val()
+                window.location.href='/search/?q='+ $query
+            }
+            
+            // cart ajax
             var $productForm = $('.form-product-ajax')
             $productForm.submit(function (e) {
                 e.preventDefault();
@@ -62,6 +79,7 @@
                 })
             })
             function refreshCart() {
+                // ajax cart functionality
                 console.log("In current curt!");
                 var $cartTable = $(".cart-table")
                 var $cartTableBody = $(".cart-table-body")
