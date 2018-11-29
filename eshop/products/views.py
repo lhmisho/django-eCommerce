@@ -26,21 +26,21 @@ class ProductFeaturedDetailView(DetailView):
     #     request = self.request
     #     return Product.objects.featured()
 
+##########################################################################################
+# passing cart to the context so that we can add product to the cart
 # slug product section
 class ProductSlugDetailView(DetailView):
 
-##########################################################################################
-    # passing cart to the context so that we can add product to the cart
     def get_context_data(self, *args, **kwargs):
         context = super(ProductSlugDetailView, self).get_context_data(*args, **kwargs)
         request = self.request
         cart_obj, new_obj = Cart.objects.new_or_get(request)
         context['cart'] = cart_obj
         return context
-##########################################################################################
 
-    # #queryset = Product.objects.all()
+    #queryset = Product.objects.all()
     template_name = "products/product_detail.html"
+
     def get_object(self, *args, **kwargs):
         slug = self.kwargs.get('slug')
 
@@ -61,10 +61,17 @@ class ProductListView(ListView):
     # first way to manage list view
     #queryset = Product.objects.all()
     template_name = 'products/product_list.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProductListView, self).get_context_data(*args, **kwargs)
+        request = self.request
+        cart_obj, new_obj = Cart.objects.new_or_get(request)
+        context['cart'] = cart_obj
+        return context
+
     def get_queryset(self, *args, **kwargs):
         request = self.request
         return Product.objects.all()
-
 
 
 def product_list_page(request):

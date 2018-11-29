@@ -1,16 +1,12 @@
 <form class="form form-product-ajax" method="POST" action='{%url "cart:update" %}' data-endpoint='{%url "cart:update" %}'>
     {% csrf_token %}
     <input type="hidden" name="product_id" value="{{product.id}}">
-        {%if in_cart %}
-            <button type="submit" class="btn btn-link" style="padding:0">remove?</button>
-            {%else%}
-                <span class="submit_span">
-                    {%if product in cart.products.all  %}
-                        <button type="submit" class="btn btn-link" style="padding:0">remove?</button>
-                    {%else%}
-                        <button type="submit" class="btn btn-success">Add</button>
-                    {%endif%}
-                </span>
-            {%endif%}
+    <span class="submit_span">
+        {%if product in cart.products.all  %}
+            <button type="submit" class="btn btn-link" style="padding:0">Remove?</button>
+        {%else%}
+            <button type="submit" class="btn btn-success">Add</button>
+        {%endif%}
+    </span>
 </form>
 

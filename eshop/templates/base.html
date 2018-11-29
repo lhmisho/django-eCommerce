@@ -79,13 +79,16 @@
                     method: $refreshCartMethod,
                     data  : $data,
                     success : function (data) {
-                        console.log("Refresh SUCCESS")
-                        console.log(data)
+
+                        var $hiddenClassRemeveForm = $(".remove-product-item")
                         if(data.products.length > 0){
                             $productsRows.html("")
                             i = data.products.length
                             $.each(data.products, function (index,value) {
-                                $cartTableBody.prepend("<tr><th scope=\"row\">"+ i +"</th><td><a href='"+ value.url +"'>"+ value.title +"</a></td><td>"+ value.price +"</td></tr>")
+                                var $newCartRemoveItem = $hiddenClassRemeveForm.clone()
+                                //$newCartRemoveItem.css("display":"block")
+                                $newCartRemoveItem.find(".cart-item-product-id").val(value.id)
+                                $cartTableBody.prepend("<tr><th scope=\"row\">"+ i +"</th><td><a href='"+ value.url +"'>"+ value.title +"</a>"+$newCartRemoveItem.html()+"</td><td>"+ value.price +"</td></tr>")
                                 i --
                             })
                             $cartTableBody.find('.cart-subtotal').text(data.subtotal)
