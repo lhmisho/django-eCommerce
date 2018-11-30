@@ -14,18 +14,11 @@
     <div class="container">
       {% block content %}{% endblock %}
     </div>
-    <script>
-      function myFunction() {
-          console.log(x.value);
-          var x = document.getElementById("myInput");
-          document.getElementById("demo").innerHTML = x.value;
-          console.log();
-      }
-    </script>
     {% include 'base/js.html' %}
+
+    <!-- start script for contact form  -->
     <script type="text/javascript">
         $(document).ready(function () {
-            // contact form
             var $contactForm          = $(".contact-form")
             var $contactFormMethod    = $contactForm.attr("method")
             var $contactFormEndPoint  = $contactForm.attr("action")
@@ -66,7 +59,7 @@
                         setTimeout(function () { displaySubmitting($contactFormBtn,$contactFormBtnTxt,false) }, 2000)
                     },
                     error  : function(error){
-                        console.log(error.responseJSON)
+                        // console.log(error.responseJSON)
                         var $jsnData = error.responseJSON
                         var $msg = ""
                         $.each($jsnData, function(key, value){
@@ -83,6 +76,13 @@
                 })
             })
 
+        })
+    </script>
+    <!--end script for contact form-->
+
+    <!--start for auto search script-->
+    <script type="text/javascript">
+        $(document).ready(function () {
             // auto search
             var $searchForm = $(".search-form")
             var $searchInput = $searchForm.find("[name='q']")
@@ -112,7 +112,14 @@
                     window.location.href='/search/?q='+ $query
                 },1000)
             }
-            
+
+        })
+    </script>
+    <!--end of auto search script-->
+
+    <!--start of cart ajax-->
+    <script type="text/javascript">
+        $(document).ready(function () {
             // cart ajax
             var $productForm = $('.form-product-ajax')
             $productForm.submit(function (e) {
@@ -152,7 +159,7 @@
             })
             function refreshCart() {
                 // ajax cart functionality
-                console.log("In current curt!");
+                //console.log("In current curt!");
                 var $cartTable = $(".cart-table")
                 var $cartTableBody = $(".cart-table-body")
 
@@ -169,7 +176,6 @@
                     method: $refreshCartMethod,
                     data  : $data,
                     success : function (data) {
-
                         var $hiddenClassRemeveForm = $(".remove-product-item")
                         if(data.products.length > 0){
                             $productsRows.html("")
@@ -195,5 +201,6 @@
             }
         })
     </script>
+  <!--end ajax cart-->
   </body>
 </html>
