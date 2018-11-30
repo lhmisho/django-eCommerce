@@ -9,8 +9,8 @@ class ContactForm(forms.Form):
     content     = forms.CharField(label='Description', max_length=500, widget=forms.Textarea(attrs={"class" : "form-control", "id" : "contactDescription", "placeholder" : "Write something about your topic"}))
 
     # a simple example of email validation
-    def clean_email(self):
-        email = self.cleaned_data.get("email")
-        if 'gmail.com' not in email:
-            raise forms.ValidationError("Email has to be GMAIL")
-        return email
+    # def clean_email(self):
+    #     email = self.cleaned_data.get("email")
+    #     if 'gmail.com' not in email:
+    #         raise forms.ValidationError("Email has to be GMAIL")
+    #     return email
