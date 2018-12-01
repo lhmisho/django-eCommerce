@@ -1,0 +1,114 @@
+[
+{
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+        "title": "car",
+        "slug": "car-qj22",
+        "description": "Rapidiously utilize extensive methods of empowerment without standards compliant platforms. Professionally network technically sound e-markets whereas enterprise-wide process improvements. Proactively maximize extensive functionalities without cost effective customer service. Efficiently optimize real-time metrics after diverse platforms. Distinctively provide access to granular platforms via 24/365 potentialities.\r\n\r\nProfessionally grow plug-and-play applications and frictionless alignments. Conveniently seize interoperable information whereas ubiquitous metrics. Continually implement B2C \"outside the box\" thinking before enabled methodologies. Seamlessly extend functionalized models after sticky materials. Assertively evisculate out-of-the-box infrastructures before resource maximizing customer service.\r\n\r\nRapidiously myocardinate inexpensive leadership skills vis-a-vis an expanded array of schemas. Energistically re-engineer unique leadership vis-a-vis global data. Intrinsicly procrastinate principle-centered results vis-a-vis market-driven solutions. Synergistically actualize unique materials vis-a-vis backend potentialities. Professionally productivate excellent human capital whereas installed base meta-services.\r\n\r\nGlobally actualize adaptive relationships vis-a-vis worldwide collaboration and idea-sharing. Energistically.",
+        "price": "10",
+        "image": "Products/267060814/267060814.jpg",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-10-18T07:15:23.786Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+        "title": "truck",
+        "slug": "truck",
+        "description": "this is my truck",
+        "price": "10",
+        "image": "Products/113185225/113185225.jpg",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-10-18T07:15:23.786Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+        "title": "but",
+        "slug": "bus",
+        "description": "my bus",
+        "price": "10",
+        "image": "Products/251898738/251898738.jpg",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-10-18T07:15:23.786Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+        "title": "rikshaw",
+        "slug": "abcefg",
+        "description": "this is the best rikhshaw",
+        "price": "10",
+        "image": "Products/99900293/99900293.jpg",
+        "featured": true,
+        "active": true,
+        "timestamp": "2018-10-18T07:15:23.786Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+        "title": "cycle",
+        "slug": "cycle",
+        "description": "this is my cycle",
+        "price": "10",
+        "image": "Products/215174775/215174775.jpg",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-10-18T07:15:23.786Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 6,
+    "fields": {
+        "title": "cycle",
+        "slug": "cycle-5gji",
+        "description": "another cycle",
+        "price": "10",
+        "image": "Products/112250009/112250009.jpg",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-10-18T07:15:23.786Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 7,
+    "fields": {
+        "title": "shirt",
+        "slug": "shirt",
+        "description": "sdafas;;f",
+        "price": "23",
+        "image": "Products/163176018/163176018.jpeg",
+        "featured": true,
+        "active": true,
+        "timestamp": "2018-10-20T13:34:56.743Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 8,
+    "fields": {
+        "title": "shirt",
+        "slug": "shirt-bx2b",
+        "description": "my shirt",
+        "price": "100",
+        "image": "Products/241026722/241026722.jpg",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-11-27T15:51:26.994Z"
+    }
+}
+]
