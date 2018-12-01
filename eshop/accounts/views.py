@@ -66,9 +66,5 @@ def register_page(request):
             'form' : form
     }
     if form.is_valid():
-        username = form.cleaned_data.get('username')
-        email    = form.cleaned_data.get('email')
-        password = form.cleaned_data.get('password')
-        # creating new user
-        new_user = User.objects.create(username, email, password)
+        form.save()
     return render(request, 'registration/register.html', context)
