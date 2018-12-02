@@ -52,7 +52,17 @@ class LoginView(FormView):
                 return redirect(redirect_path)
             else:
                 return redirect("/")
+        else:
+            messages.error(request, "Invalid login username or password")
+            return redirect('accounts:login')
         return super(LoginView, self).form_invalid(form)
+
+class RegisterView(CreateView):
+    form_class = RegisterForm
+    template_name = 'registration/register.html'
+    success_url = '/login/'
+
+
 #
 # def login_page(request):
 #     form = LoginForm(request.POST or None)
@@ -84,10 +94,7 @@ class LoginView(FormView):
 #
 #     return render(request, 'registration/login.html', context)
 
-class RegisterView(CreateView):
-    form_class = RegisterForm
-    template_name = 'registration/register.html'
-    success_url = '/login/'
+
 #
 # User = get_user_model()
 # def register_page(request):
