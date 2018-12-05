@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import  AbstractBaseUser, BaseUserManager
-
+from referrals.signals import create_flat_referral
 # Create your models here.
 
 class UserManager(BaseUserManager):

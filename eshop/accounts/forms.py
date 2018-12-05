@@ -1,8 +1,21 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from referrals.widgets import ReferralWidget
+from referrals.fields import ReferralField
+from referrals.signals import create_flat_referral
+#from referrals.models import MultiLevelReferral
+from referrals.models import Link
+
 User = get_user_model()
 # creating class for login form ... next step is manage views.py
+#
+user = User.objects.filter(email=True).first()
+#
+if user:
+    link = Link.objects.create(user=user)
+    print(str(link.token))
+
 
 class UserAdminCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
@@ -87,3 +100,12 @@ class RegisterForm(forms.ModelForm):
         return user
 
 
+class ReferralSignupForm(RegisterForm):
+    referral = ReferralField(widget=ReferralWidget())
+
+#create_flat_referral.send(sender=User, request, user)
+
+# user = User.objects.filter(is_superuser=True).first()
+# if user:
+#     link = Link.objects.create(user=user)
+#     print(str(link.token))
