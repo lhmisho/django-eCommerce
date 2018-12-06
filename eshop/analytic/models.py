@@ -3,7 +3,8 @@ from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
-
+from .singnals import object_viewd_singnal
+from .utils import get_client_ip
 User = settings.AUTH_USER_MODEL
 # Create your models here.
 
@@ -24,3 +25,19 @@ class ObjectViewd(models.Model):
         ordering = ['-timestamp']
         verbose_name = 'Object viewd'
         verbose_name_plural = 'Objects viewd'
+
+
+def object_viewd_receiver(sender, instance, request, *args, **kwargs):
+    # instance.__class__
+    content_type = ContentType.objects.get_for_model(sender)
+
+    new_object_view = ObjectViewd.objects.create(
+        user        = request.user,
+        object_id=instance.id,
+        content_type = content_type,
+        ip_address=get_client_ip(request),
+    )
+
+"I send the sender along with this signal so i don't need to write the sender on connect function"
+
+object_viewd_singnal.connect(object_viewd_receiver)
