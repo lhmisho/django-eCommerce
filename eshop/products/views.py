@@ -4,7 +4,8 @@ from django.views.generic import ListView, DetailView
 # importing from .models
 from .models import Product
 from carts.models import Cart
-from analytic.singnals import object_viewd_singnal
+from analytic.mixins import ObjectViewdMixin
+
 # featured product section
 class ProductFeaturedListView(ListView):
     # first way to manage list view
@@ -16,7 +17,7 @@ class ProductFeaturedListView(ListView):
         request = self.request
         return Product.objects.all().featured()
 
-class ProductFeaturedDetailView(DetailView):
+class ProductFeaturedDetailView(ObjectViewdMixin, DetailView):
     # geting all object form Product
     queryset = Product.objects.all().featured()
     template_name = 'products/featured-detail.html'
@@ -29,7 +30,7 @@ class ProductFeaturedDetailView(DetailView):
 ##########################################################################################
 # passing cart to the context so that we can add product to the cart
 # slug product section
-class ProductSlugDetailView(DetailView):
+class ProductSlugDetailView(ObjectViewdMixin, DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProductSlugDetailView, self).get_context_data(*args, **kwargs)
@@ -85,7 +86,7 @@ def product_list_page(request):
     }
     return render(request, 'products/product_list.html', context)
 
-class ProductDetailView(DetailView):
+class ProductDetailView(ObjectViewdMixin, DetailView):
     # geting all object form Product
     #queryset = Product.objects.all()
     template_name = 'products/product_detail.html'
