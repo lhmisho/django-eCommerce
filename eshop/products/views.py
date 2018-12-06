@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView
 # importing from .models
 from .models import Product
 from carts.models import Cart
-
+from analytic.singnals import object_viewd_singnal
 # featured product section
 class ProductFeaturedListView(ListView):
     # first way to manage list view
@@ -43,7 +43,7 @@ class ProductSlugDetailView(DetailView):
 
     def get_object(self, *args, **kwargs):
         slug = self.kwargs.get('slug')
-
+        request = self.request
         try:
             instance = Product.objects.get(slug=slug, active=True)
         except Product.DoesNotExist:
@@ -54,6 +54,8 @@ class ProductSlugDetailView(DetailView):
         except:
             raise Http404("don't bother..")
 
+        "for sending signals for analytics"
+        #object_viewd_singnal.send(instance.__class__, instance=instance, request=request)
         return instance
 
 # general product section
@@ -90,7 +92,6 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProductDetailView, self).get_context_data(*args,**kwargs)
-        print(context)
         return context
 
     #my custom query for retriving data in detailView
@@ -98,7 +99,6 @@ class ProductDetailView(DetailView):
         #request = self.request
         pk = self.kwargs.get('pk')
         instance = Product.objects.get_by_id(pk)  # my query
-        print(instance)
         if instance is None:
             raise Http404("product not found")
         return instance
@@ -122,7 +122,6 @@ def product_detail_page(request,pk=None, *args, **kwargs):
 
     # get_by_id is my custom query ...
     instance   = Product.objects.get_by_id(pk)
-    print(instance)
     if instance is None:
         raise Http404("product not found")
 
