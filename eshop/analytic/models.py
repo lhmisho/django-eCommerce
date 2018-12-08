@@ -70,18 +70,25 @@ class UserSession(models.Model):
             pass
         return self.ended
 
+    def __str__(self):
+        return self.user.email
+
 
 def post_save_session_reveiver(sender, instance, created, *args, **kwargs):
     if created:
         qs = UserSession.objects.filter(user=instance.user).exclude(id=instance.id)
+        qss = UserSession.objects.filter(user=instance.user).exclude(id=instance.id).count()
+        "here the login is if the user logged in more than 3 browser only the last browser will active rest of them deactivated"
         for i in qs:
-            i.end_session()
+            if qss >= 2:
+                i.end_session()
+
 
 post_save.connect(post_save_session_reveiver, sender=UserSession)
 
 # def post_save_user_changed_reveiver(sender, instance, created, *args, **kwargs):
 #     if created:
-#         qs = UserSession.objects.filter(user=instance.user).exclude(id=instance.id)
+#         qs = UserSession.objects.fiuserlter(user=instance.user).exclude(id=instance.id)
 #         for i in qs:
 #             i.end_session()
 #
