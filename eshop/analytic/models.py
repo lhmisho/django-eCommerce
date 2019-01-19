@@ -78,7 +78,7 @@ def post_save_session_reveiver(sender, instance, created, *args, **kwargs):
     if created:
         qs = UserSession.objects.filter(user=instance.user).exclude(id=instance.id)
         qss = UserSession.objects.filter(user=instance.user).exclude(id=instance.id).count()
-        "here the login is if the user logged in more than 3 browser only the last browser will active rest of them deactivated"
+        "here the login user  logged in more than 3 browser only the last browser will active rest of them loged out "
         for i in qs:
             if qss >= 2:
                 i.end_session()

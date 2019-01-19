@@ -46,6 +46,8 @@ urlpatterns = [
     # mapping address view
     path('checkout_address_created_view/', checkout_address_created_view, name='checkout_address_created'),
     path('checkout/address/reuse/view/', checkout_address_reuse_view, name='checkout_address_reuse'),
+
+    # review
 ]
 
 if settings.DEBUG:
