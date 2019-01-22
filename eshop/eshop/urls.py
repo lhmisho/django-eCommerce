@@ -22,6 +22,7 @@ from django.urls import path,re_path, include
 from address.views import checkout_address_created_view,checkout_address_reuse_view
 from .views import *
 from carts.views import cart_detail_api_view
+from billing.views import pyment_method_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_page, name='home'),
@@ -47,7 +48,8 @@ urlpatterns = [
     path('checkout_address_created_view/', checkout_address_created_view, name='checkout_address_created'),
     path('checkout/address/reuse/view/', checkout_address_reuse_view, name='checkout_address_reuse'),
 
-    # review
+    # payments
+    path('payments/methods/', pyment_method_view, name='payment-method'),
 ]
 
 if settings.DEBUG:

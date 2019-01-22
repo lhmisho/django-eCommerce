@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'address',
     'referrals',
     'analytic',
-
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
