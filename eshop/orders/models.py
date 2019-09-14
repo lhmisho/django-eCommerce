@@ -17,6 +17,7 @@ ORDER_STATUS_CHOICE = (
     ('refounded', 'REFOUNDED')
 )
 
+
 class OrderManager(models.Manager):
     def new_or_get(self, billing_profile, cart_obj):
         created = False
@@ -27,6 +28,7 @@ class OrderManager(models.Manager):
             obj = self.model.objects.create(billing_profile=billing_profile, cart=cart_obj)
             created = True
         return obj, created
+
 
 class Order(models.Model):
     order_id = models.CharField(max_length=120, blank=True)

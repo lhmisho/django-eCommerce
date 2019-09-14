@@ -22,7 +22,9 @@ from django.urls import path,re_path, include
 from address.views import checkout_address_created_view,checkout_address_reuse_view
 from .views import *
 from carts.views import cart_detail_api_view
-from billing.views import pyment_method_view
+from billing.views import pyment_method_view, payment_method_creat_view
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_page, name='home'),
@@ -50,6 +52,7 @@ urlpatterns = [
 
     # payments
     path('payments/methods/', pyment_method_view, name='payment-method'),
+    path('payments/methods/create/', payment_method_creat_view, name='payment-method-api'),
 ]
 
 if settings.DEBUG:

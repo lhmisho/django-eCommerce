@@ -10,10 +10,11 @@ from .models import *
 from .signals import user_logged_in
 # Create your views here.
 
+
 def guest_register_view(request):
     form = GuestForm(request.POST or None)
     context = {
-            'form' : form
+            'form': form
     }
     next_ = request.GET.get('next')
     next_post = request.POST.get('next')

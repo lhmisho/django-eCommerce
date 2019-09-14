@@ -1,6 +1,6 @@
-{% extends 'base.html'%}
-{%block content%}
-    {{ object.order_id}} -- {{ object.cart }}
+{% extends 'base.html' %}
+{% block content %}
+    {{ object.order_id }} -- {{ object.cart }}
     {% if not billing_profile %}
         <div class="row text-center">
             <div class="col-12 col-md-6">
@@ -50,23 +50,33 @@
                 {% if address_qs.exists %}
                     <div class="col-6">
                         {% url "checkout_address_reuse" as checkout_address_reuse %}
-                        {% include 'address/previous_address.html' with address_qs=address_qs  next_uri=request.build_absolute_uri action_url=checkout_address_reuse address_type='billing'%}
+                        {% include 'address/previous_address.html' with address_qs=address_qs  next_uri=request.build_absolute_uri action_url=checkout_address_reuse address_type='billing' %}
                     </div>
                 {% endif %}
             </div>
 
         {% else %}
-            <h2>Finalize Checkout</h2>
-            <p>Total product : {{ object.cart.products.all.count }}</p>
-            <p>Cart Item: {%for product in object.cart.products.all %} {{ product|upper }}{% if not foorloop.last %}, {% endif %}{% endfor %}</p>
-            <p>Shipping Address: {{object.shipping_address.get_address}}</p>
-            <p>Billing Address: {{object.billing_address.get_address}}</p>
-            <p>Cart total: {{object.cart.total}}</p>
-            <p>Shipping toatal: {{object.shipping_total}}</p>
-            <p>Oreder total: {{object.total}}</p>
-            <form class="form" method="POST" action="">{% csrf_token %}
-                <button type="submit" class="btn btn-success">Checkout</button>
-            </form>
+            {% if not has_card %}
+                <div class="col-10 col-md-6 mx-auto">
+                    <div class="stripe-payment-form" data-token="{{ publish_key }}"
+                         data-next-url='{{ request.build_absolute_uri }}' data-btn-title="Add New button">
+                    </div>
+
+                </div>
+            {% else %}
+                <h2>Finalize Checkout</h2>
+                <p>Total product : {{ object.cart.products.all.count }}</p>
+                <p>Cart Item: {% for product in object.cart.products.all %}
+                    {{ product|upper }}{% if not foorloop.last %}, {% endif %}{% endfor %}</p>
+                <p>Shipping Address: {{ object.shipping_address.get_address }}</p>
+                <p>Billing Address: {{ object.billing_address.get_address }}</p>
+                <p>Cart total: {{ object.cart.total }}</p>
+                <p>Shipping toatal: {{ object.shipping_total }}</p>
+                <p>Oreder total: {{ object.total }}</p>
+                <form class="form" method="POST" action="">{% csrf_token %}
+                    <button type="submit" class="btn btn-success">Checkout</button>
+                </form>
+            {% endif %}
         {% endif %}
-    {%endif%}
-{%endblock%}
+    {% endif %}
+{% endblock %}

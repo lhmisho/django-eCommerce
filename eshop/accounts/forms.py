@@ -1,11 +1,11 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from referrals.widgets import ReferralWidget
-from referrals.fields import ReferralField
-from referrals.signals import create_flat_referral
+# from referrals.widgets import ReferralWidget
+# from referrals.fields import ReferralField
+# from referrals.signals import create_flat_referral
 #from referrals.models import MultiLevelReferral
-from referrals.models import Link
+# from referrals.models import Link
 
 User = get_user_model()
 # creating class for login form ... next step is manage views.py
@@ -100,8 +100,8 @@ class RegisterForm(forms.ModelForm):
         return user
 
 
-class ReferralSignupForm(RegisterForm):
-    referral = ReferralField(widget=ReferralWidget())
+# class ReferralSignupForm(RegisterForm):
+#     referral = ReferralField(widget=ReferralWidget())
 
 #create_flat_referral.send(sender=User, request, user)
 

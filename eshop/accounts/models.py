@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import  AbstractBaseUser, BaseUserManager
-from referrals.signals import create_flat_referral
+# from referrals.signals import create_flat_referral
 # Create your models here.
 
 class UserManager(BaseUserManager):
@@ -98,7 +98,7 @@ class User(AbstractBaseUser):
 
     @property
     def is_admin(self):
-        "Is the user a admin member?"
+        """Is the user a admin member?"""
         return self.admin
 
     @property
@@ -106,11 +106,12 @@ class User(AbstractBaseUser):
         "Is the user active?"
         return self.active
 
+
 class GuestEmail(models.Model):
-    email   = models.EmailField()
-    active  = models.BooleanField(default=True)
-    updateat    = models.DateTimeField(auto_now=True)
-    timestamp   = models.DateTimeField(auto_now_add=True)
+    email = models.EmailField()
+    active = models.BooleanField(default=True)
+    updateat = models.DateTimeField(auto_now=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.email

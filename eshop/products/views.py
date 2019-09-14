@@ -56,7 +56,7 @@ class ProductSlugDetailView(ObjectViewdMixin, DetailView):
             raise Http404("don't bother..")
 
         "for sending signals for analytics"
-        #object_viewd_singnal.send(instance.__class__, instance=instance, request=request)
+        # object_viewd_singnal.send(instance.__class__, instance=instance, request=request)
         return instance
 
 # general product section

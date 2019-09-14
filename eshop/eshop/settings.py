@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'accounts',
     'billing',
     'address',
-    'referrals',
+    # 'referrals',
     'analytic',
 ]
 
@@ -92,6 +92,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
 
 
 # Password validation
@@ -150,3 +151,12 @@ DJANGO_REFERRALS_DEFAULT_INPUT_VALUE = '40ed41dc-d291-4358-ae4e-d3c07c2d67dc' # 
 
 DJANGO_REFERRALS_DEFAULT_URL = 'http://localhost:8000/'                       # Address for referral link
 DJANGO_REFERRALS_PREFIX = ''                                                  # Prefix for key in localStorage.
+
+
+STRIPE_SEC_KEY = "sk_test_Lv83uXj8SaWmUUhMKxBzratw"
+
+STRIPE_PUB_KEY = "pk_test_UYuzHdmsbb4URaYMjocxJPZP"
+# main chimp
+MAILCHIMP_API_KEY       = "92f075fbc9dcf434e5a5ea32d43df3f8-us20"
+MAILCHIMP_DATA_CENTER   = "us20"
+MAILCHIMP_EMAIL_LIST_ID = "877981ebc6"
